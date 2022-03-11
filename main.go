@@ -1,13 +1,14 @@
 package main
 
 import (
-	basic "learnGo/basic"
+	"fmt"
+	"learnGo/basic"
 	"learnGo/router"
 )
 
 func main() {
-	basic.TestCreatePackage2("aaqsccqfffqq")
-
+	fmt.Println("<<<< ======================= Map ============================= >>>")
+	basic.LearnMap()
 	router.Router()
 	//http://localhost:8080/
 }
