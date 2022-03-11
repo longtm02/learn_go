@@ -1,0 +1,45 @@
+version: '3.7'
+
+
+services:
+  my-project-with-air:
+    image: cosmtrek/air
+    # working_dir value has to be the same of mapped volume
+    working_dir: /project-package
+    ports:
+      - 80:80
+    volumes:
+      - ./project-relative-path/:/project-package/
+    networks:
+      - common
+      
+  go:
+    container_name: go_server
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/app
+    networks:
+      - common
+    environment:
+      PORT: 8080
+      MONGO_URL: 'mongodb://mongo/example'
+      NODE_ENV: 'development'
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data/db
+    networks:
+      - common
+
+
+
+networks:
+  common:
